@@ -1,0 +1,988 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>AIDrain.earth — Real-Time AI Water Consumption Counter</title>
+  <meta name="description" content="How much water does AI really use? AIDrain.earth tracks the global fresh water footprint of artificial intelligence in real time — based on peer-reviewed research and public corporate environmental reports." />
+  <meta name="keywords" content="AI water consumption, artificial intelligence water usage, ChatGPT water footprint, data center water, AI environmental impact, AI carbon footprint, how much water does AI use, AI sustainability, green AI, AI ecology" />
+  <meta name="author" content="AIDrain.earth" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://aidrain.earth/" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://aidrain.earth/" />
+  <meta property="og:title" content="AIDrain.earth — Real-Time AI Water Consumption Counter" />
+  <meta property="og:description" content="Every AI prompt costs water. Track the global fresh water footprint of artificial intelligence — live, in real time." />
+  <meta property="og:image" content="https://aidrain.earth/og-image.png" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:site_name" content="AIDrain.earth" />
+  <meta property="og:locale" content="en_US" />
+
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@aidrainearth" />
+  <meta name="twitter:title" content="AIDrain.earth — Real-Time AI Water Consumption Counter" />
+  <meta name="twitter:description" content="Every AI prompt costs water. Track the global fresh water footprint of artificial intelligence — live, in real time." />
+  <meta name="twitter:image" content="https://aidrain.earth/og-image.png" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "AIDrain.earth",
+    "url": "https://aidrain.earth/",
+    "description": "Real-time tracker of the global fresh water consumption of artificial intelligence.",
+    "author": { "@type": "Organization", "name": "AIDrain.earth" }
+  }
+  </script>
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><path d='M16 2C16 2 4 14 4 21C4 27.6 9.4 32 16 32C22.6 32 28 27.6 28 21C28 14 16 2 16 2Z' fill='%230ea5e9'/></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-31BLELJMCV"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-31BLELJMCV');
+  </script>
+
+  <style>
+    /* ── RESET ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    /* ── DESIGN TOKENS ── */
+    :root {
+      --font-display: 'Outfit', sans-serif;
+      --font-mono:    'DM Mono', monospace;
+      --radius-sm:    6px;
+      --radius-md:    12px;
+      --radius-lg:    20px;
+      --radius-full:  999px;
+      --transition:   200ms ease;
+    }
+
+    /* DARK MODE (default) */
+    [data-theme="dark"] {
+      --bg-base:       #070d1a;
+      --bg-surface:    #0c1525;
+      --bg-elevated:   #111e33;
+      --bg-subtle:     #162240;
+
+      --text-primary:  #f0f6ff;
+      --text-secondary:#7a9cc8;
+      --text-tertiary: #3d5a80;
+      --text-inverse:  #070d1a;
+
+      --accent:        #0ea5e9;
+      --accent-bright: #38bdf8;
+      --accent-dim:    #0369a1;
+      --accent-glow:   rgba(14,165,233,0.18);
+      --accent-glow-lg:rgba(14,165,233,0.10);
+
+      --green:         #34d399;
+      --amber:         #fbbf24;
+      --purple:        #a78bfa;
+      --teal:          #2dd4bf;
+      --red:           #f87171;
+
+      --border:        rgba(14,165,233,0.12);
+      --border-strong: rgba(14,165,233,0.25);
+      --border-focus:  #0ea5e9;
+
+      --live-color:    #f87171;
+      --shadow-card:   0 1px 3px rgba(0,0,0,0.4), 0 0 0 1px rgba(14,165,233,0.08);
+      --shadow-hero:   0 2px 8px rgba(0,0,0,0.5), 0 0 40px rgba(14,165,233,0.06);
+      --glow-text:     0 0 40px rgba(14,165,233,0.35);
+    }
+
+    /* LIGHT MODE */
+    [data-theme="light"] {
+      --bg-base:       #f4f7fb;
+      --bg-surface:    #ffffff;
+      --bg-elevated:   #ffffff;
+      --bg-subtle:     #e8f0fb;
+
+      --text-primary:  #0a1628;
+      --text-secondary:#2d5080;
+      --text-tertiary: #6b8ab0;
+      --text-inverse:  #f0f6ff;
+
+      --accent:        #0369a1;
+      --accent-bright: #0ea5e9;
+      --accent-dim:    #bae6fd;
+      --accent-glow:   rgba(3,105,161,0.08);
+      --accent-glow-lg:rgba(3,105,161,0.05);
+
+      --green:         #059669;
+      --amber:         #d97706;
+      --purple:        #7c3aed;
+      --teal:          #0d9488;
+      --red:           #dc2626;
+
+      --border:        rgba(3,105,161,0.12);
+      --border-strong: rgba(3,105,161,0.22);
+      --border-focus:  #0369a1;
+
+      --live-color:    #dc2626;
+      --shadow-card:   0 1px 3px rgba(0,0,0,0.06), 0 0 0 1px rgba(3,105,161,0.08);
+      --shadow-hero:   0 4px 24px rgba(0,0,0,0.08), 0 0 0 1px rgba(3,105,161,0.10);
+      --glow-text:     none;
+    }
+
+    /* ── BASE ── */
+    body {
+      background: var(--bg-base);
+      color: var(--text-primary);
+      font-family: var(--font-display);
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      transition: background var(--transition), color var(--transition);
+    }
+
+    /* Focus visible — keyboard nav */
+    :focus-visible {
+      outline: 2px solid var(--border-focus);
+      outline-offset: 3px;
+      border-radius: var(--radius-sm);
+    }
+
+    /* ── SKIP LINK (a11y) ── */
+    .skip-link {
+      position: absolute;
+      top: -100%;
+      left: 1rem;
+      background: var(--accent);
+      color: var(--text-inverse);
+      padding: 8px 16px;
+      border-radius: var(--radius-sm);
+      font-size: 14px;
+      font-weight: 600;
+      z-index: 100;
+      transition: top 0.1s;
+    }
+    .skip-link:focus { top: 1rem; }
+
+    /* ── LAYOUT ── */
+    .page {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.75rem;
+    }
+
+    /* ── TOP BAR ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .brand-name {
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+    .brand-name span { color: var(--accent-bright); }
+    [data-theme="dark"] .brand-name span {
+      text-shadow: 0 0 20px rgba(56,189,248,0.5);
+    }
+    .brand-sub {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.02em;
+    }
+
+    /* Theme toggle */
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      padding: 6px 14px;
+      cursor: pointer;
+      font-family: var(--font-display);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      transition: background var(--transition), border-color var(--transition), color var(--transition);
+      white-space: nowrap;
+    }
+    .theme-toggle:hover {
+      background: var(--bg-elevated);
+      border-color: var(--border-strong);
+      color: var(--text-primary);
+    }
+    .theme-icon { font-size: 14px; }
+
+    /* ── LIVE INDICATOR ── */
+    .live-indicator {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--bg-subtle);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      padding: 4px 12px 4px 8px;
+      width: fit-content;
+    }
+    .live-dot-wrap {
+      position: relative;
+      width: 10px;
+      height: 10px;
+      flex-shrink: 0;
+    }
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--live-color);
+      position: absolute;
+    }
+    .live-pulse {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--live-color);
+      position: absolute;
+      animation: livepulse 1.8s ease-out infinite;
+    }
+    @keyframes livepulse {
+      0%   { transform: scale(1);   opacity: .7; }
+      100% { transform: scale(2.8); opacity: 0;  }
+    }
+    .live-label {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      font-weight: 500;
+      color: var(--live-color);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+    .live-since {
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+
+    /* ── HERO CARD ── */
+    .hero {
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem 2rem;
+      box-shadow: var(--shadow-hero);
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Decorative arc — dark only */
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 500px;
+      height: 260px;
+      border-radius: 50%;
+      border: 1px solid var(--accent-glow);
+      pointer-events: none;
+    }
+    [data-theme="light"] .hero::before { display: none; }
+
+    .hero-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .hero-label {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    /* Main counter */
+    .hero-counter {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.5rem;
+      text-align: center;
+      padding: 0.5rem 0;
+    }
+
+    .counter-number {
+      font-family: var(--font-mono);
+      font-size: clamp(40px, 9vw, 72px);
+      font-weight: 500;
+      color: var(--accent-bright);
+      letter-spacing: -1px;
+      line-height: 1;
+      word-break: break-all;
+      text-shadow: var(--glow-text);
+    }
+
+    .counter-unit {
+      font-size: 17px;
+      font-weight: 400;
+      color: var(--text-secondary);
+    }
+
+    .counter-date {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--text-tertiary);
+    }
+
+    /* ── RATE ROW ── */
+    .rate-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+    }
+
+    .rate-cell {
+      background: var(--bg-elevated);
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 3px;
+      text-align: center;
+    }
+
+    .rate-value {
+      font-family: var(--font-mono);
+      font-size: clamp(16px, 3vw, 22px);
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1;
+    }
+
+    .rate-label {
+      font-size: 11px;
+      color: var(--text-tertiary);
+      letter-spacing: 0.03em;
+    }
+
+    /* ── PROGRESS BAR ── */
+    .progress-section { display: flex; flex-direction: column; gap: 8px; }
+
+    .progress-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+    }
+
+    .progress-title {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    .progress-pct {
+      font-family: var(--font-mono);
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--accent-bright);
+    }
+
+    .progress-track {
+      height: 6px;
+      background: var(--bg-subtle);
+      border-radius: var(--radius-full);
+      overflow: visible;
+      position: relative;
+    }
+
+    .progress-fill {
+      height: 100%;
+      border-radius: var(--radius-full);
+      background: var(--accent);
+      position: relative;
+      transition: width 0.4s ease;
+      min-width: 6px;
+    }
+
+    [data-theme="dark"] .progress-fill {
+      box-shadow: 0 0 8px var(--accent-glow);
+    }
+
+    .progress-tip {
+      position: absolute;
+      right: -1px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--accent-bright);
+      border: 2px solid var(--bg-surface);
+    }
+
+    [data-theme="dark"] .progress-tip {
+      box-shadow: 0 0 8px var(--accent);
+    }
+
+    .progress-caption {
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+
+    /* ── INSIGHT BADGES ── */
+    .badges {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .badge {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-full);
+      padding: 8px 16px;
+      font-size: 14px;
+    }
+
+    .badge-icon {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: var(--accent-glow);
+      border: 1px solid var(--border-strong);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      font-size: 10px;
+    }
+
+    .badge-label { color: var(--text-tertiary); }
+    .badge-value {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      color: var(--accent-bright);
+    }
+
+    /* ── SECTION LABEL ── */
+    .section-label {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--text-tertiary);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    /* ── METRIC CARDS ── */
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1px;
+      background: var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+    }
+
+    .metric-card {
+      background: var(--bg-surface);
+      padding: 1.5rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .metric-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .metric-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: var(--radius-sm);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .icon-amber { background: rgba(251,191,36,0.12); }
+    .icon-green { background: rgba(52,211,153,0.12); }
+    .icon-purple{ background: rgba(167,139,250,0.12); }
+    .icon-teal  { background: rgba(45,212,191,0.12); }
+    .icon-blue  { background: rgba(14,165,233,0.12); }
+    .icon-red   { background: rgba(248,113,113,0.12); }
+
+    [data-theme="light"] .icon-amber  { background: rgba(217,119,6,0.10);  }
+    [data-theme="light"] .icon-green  { background: rgba(5,150,105,0.10);  }
+    [data-theme="light"] .icon-purple { background: rgba(124,58,237,0.10); }
+    [data-theme="light"] .icon-teal   { background: rgba(13,148,136,0.10); }
+    [data-theme="light"] .icon-blue   { background: rgba(3,105,161,0.10);  }
+    [data-theme="light"] .icon-red    { background: rgba(220,38,38,0.10);  }
+
+    .metric-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      letter-spacing: 0.02em;
+    }
+
+    .metric-value {
+      font-family: var(--font-mono);
+      font-size: clamp(18px, 3.5vw, 24px);
+      font-weight: 500;
+      line-height: 1;
+      color: var(--text-primary);
+    }
+
+    .val-amber  { color: var(--amber);  }
+    .val-green  { color: var(--green);  }
+    .val-purple { color: var(--purple); }
+    .val-teal   { color: var(--teal);   }
+    .val-blue   { color: var(--accent-bright); }
+    .val-red    { color: var(--red);    }
+
+    .metric-unit {
+      font-size: 11px;
+      color: var(--text-tertiary);
+    }
+
+    /* ── SOURCE NOTE ── */
+    .source-note {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      line-height: 1.7;
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+    }
+
+    /* ── FOOTER ── */
+    .footer {
+      font-size: 12px;
+      color: var(--text-tertiary);
+      text-align: center;
+      line-height: 1.8;
+      border-top: 1px solid var(--border);
+      padding-top: 1.5rem;
+    }
+    .footer a {
+      color: var(--accent-bright);
+      text-decoration: none;
+    }
+    .footer a:hover { text-decoration: underline; }
+
+    /* ── ANIMATIONS ── */
+    @media (prefers-reduced-motion: no-preference) {
+      .hero { animation: fadeUp 0.5s ease both; }
+      .cards-grid { animation: fadeUp 0.5s 0.15s ease both; }
+
+      @keyframes fadeUp {
+        from { opacity: 0; transform: translateY(12px); }
+        to   { opacity: 1; transform: translateY(0); }
+      }
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 520px) {
+      .hero { padding: 1.75rem 1.25rem; }
+      .rate-row { grid-template-columns: repeat(3, 1fr); }
+      .cards-grid { grid-template-columns: 1fr 1fr; }
+      .topbar { flex-wrap: wrap; }
+    }
+
+    @media (max-width: 380px) {
+      .cards-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<a href="#main-content" class="skip-link">Skip to main content</a>
+
+<main class="page" id="main-content">
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <header class="brand">
+      <div class="brand-name" aria-label="AIDrain.earth">AI<span>Drain</span>.earth</div>
+      <div class="brand-sub">Environmental cost of artificial intelligence</div>
+    </header>
+
+    <button
+      class="theme-toggle"
+      id="theme-btn"
+      aria-label="Switch to light mode"
+      aria-pressed="false"
+    >
+      <span class="theme-icon" aria-hidden="true" id="theme-icon">☀</span>
+      <span id="theme-label">Light mode</span>
+    </button>
+  </div>
+
+  <!-- LIVE INDICATOR -->
+  <div
+    class="live-indicator"
+    role="status"
+    aria-label="Live data — updating in real time"
+    aria-live="polite"
+    aria-atomic="false"
+  >
+    <div class="live-dot-wrap" aria-hidden="true">
+      <div class="live-pulse"></div>
+      <div class="live-dot"></div>
+    </div>
+    <span class="live-label">Live</span>
+    <span class="live-since" aria-hidden="true">·</span>
+    <span class="live-since">Updating every 100ms</span>
+  </div>
+
+  <!-- HERO CARD -->
+  <section
+    class="hero"
+    aria-labelledby="hero-heading"
+  >
+    <div class="hero-header">
+      <div>
+        <div class="section-label" id="hero-heading">Fresh water consumed by AI — today</div>
+      </div>
+      <div id="hero-date-wrap">
+        <div class="counter-date" id="hero-date" aria-label="Today's date"></div>
+      </div>
+    </div>
+
+    <div class="hero-counter">
+      <div
+        class="counter-number"
+        id="today-num"
+        role="timer"
+        aria-label="Liters of fresh water consumed by AI today"
+        aria-live="off"
+      >0</div>
+      <div class="counter-unit">liters of fresh water</div>
+    </div>
+
+    <!-- RATE ROW -->
+    <div class="rate-row" role="list" aria-label="Current consumption rates">
+      <div class="rate-cell" role="listitem">
+        <div class="rate-value" id="r-sec" aria-label="Liters per second">0</div>
+        <div class="rate-label">liters / sec</div>
+      </div>
+      <div class="rate-cell" role="listitem">
+        <div class="rate-value" id="r-min" aria-label="Liters per minute">0</div>
+        <div class="rate-label">liters / min</div>
+      </div>
+      <div class="rate-cell" role="listitem">
+        <div class="rate-value" id="r-hr" aria-label="Liters per hour">0</div>
+        <div class="rate-label">liters / hour</div>
+      </div>
+    </div>
+
+    <!-- PROGRESS BAR -->
+    <div class="progress-section" aria-label="Day progress">
+      <div class="progress-header">
+        <span class="progress-title">Day progress</span>
+        <span class="progress-pct" id="day-pct" aria-live="off">0%</span>
+      </div>
+      <div
+        class="progress-track"
+        role="progressbar"
+        aria-valuenow="0"
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-label="Percentage of day elapsed"
+        id="progress-track"
+      >
+        <div class="progress-fill" id="dp-fill" style="width:0%">
+          <div class="progress-tip" aria-hidden="true"></div>
+        </div>
+      </div>
+      <div class="progress-caption">Toward projected daily total of ~274 million liters</div>
+    </div>
+
+    <!-- INSIGHT BADGES -->
+    <div class="badges" role="list" aria-label="Key water consumption insights">
+      <div class="badge" role="listitem">
+        <div class="badge-icon" aria-hidden="true">◉</div>
+        <span class="badge-label">Per query:</span>
+        <span class="badge-value">~0.5 L</span>
+      </div>
+      <div class="badge" role="listitem">
+        <div class="badge-icon" aria-hidden="true">◈</div>
+        <span class="badge-label">Daily total:</span>
+        <span class="badge-value" id="daily-chip">~274M L</span>
+      </div>
+      <div class="badge" role="listitem">
+        <div class="badge-icon" aria-hidden="true">◇</div>
+        <span class="badge-label">Water-stressed DCs:</span>
+        <span class="badge-value">~50%</span>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- SECONDARY METRICS -->
+  <div>
+    <div class="section-label" style="margin-bottom:0.875rem;">Other ecological indicators — global AI footprint since 2021</div>
+    <div class="cards-grid" role="list">
+
+      <div class="metric-card" role="listitem">
+        <div class="metric-header">
+          <div class="metric-icon icon-amber" aria-hidden="true">⚡</div>
+          <div class="metric-label">Energy consumed</div>
+        </div>
+        <div class="metric-value val-amber" id="energy-val">0</div>
+        <div class="metric-unit">megawatt-hours (MWh)</div>
+      </div>
+
+      <div class="metric-card" role="listitem">
+        <div class="metric-header">
+          <div class="metric-icon icon-green" aria-hidden="true">CO₂</div>
+          <div class="metric-label">Carbon emitted</div>
+        </div>
+        <div class="metric-value val-green" id="co2-val">0</div>
+        <div class="metric-unit">metric tonnes CO₂ equivalent</div>
+      </div>
+
+      <div class="metric-card" role="listitem">
+        <div class="metric-header">
+          <div class="metric-icon icon-purple" aria-hidden="true">AI</div>
+          <div class="metric-label">Queries processed</div>
+        </div>
+        <div class="metric-value val-purple" id="queries-val">0</div>
+        <div class="metric-unit">total AI prompts globally</div>
+      </div>
+
+      <div class="metric-card" role="listitem">
+        <div class="metric-header">
+          <div class="metric-icon icon-teal" aria-hidden="true">◉</div>
+          <div class="metric-label">Bottles (500ml)</div>
+        </div>
+        <div class="metric-value val-teal" id="bottles-val">0</div>
+        <div class="metric-unit">equivalent — today</div>
+      </div>
+
+      <div class="metric-card" role="listitem">
+        <div class="metric-header">
+          <div class="metric-icon icon-blue" aria-hidden="true">▣</div>
+          <div class="metric-label">Olympic pools</div>
+        </div>
+        <div class="metric-value val-blue" id="pools-val">0</div>
+        <div class="metric-unit">filled today (2.5M L each)</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- SOURCE NOTE -->
+  <aside class="source-note" aria-label="Data sources and methodology">
+    <strong style="color:var(--text-secondary);font-weight:500;">Methodology:</strong>
+    Based on Google (6.4B gal, 2023), Microsoft (1.7B gal, 2023), Meta (813M gal, 2023)
+    plus estimated hyperscaler share with ~40% YoY growth.
+    Per-query figure (~0.5 L) from Li et al. (2023) "Making AI Less Thirsty", UC Riverside / Rochester.
+    Water-stressed zones estimate from IEA Electricity 2024.
+    All values are estimates based on publicly available data.
+  </aside>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>
+      <a href="https://arxiv.org/abs/2304.03271" target="_blank" rel="noopener">Li et al. (2023)</a>
+      &middot; <a href="https://sustainability.google/reports/" target="_blank" rel="noopener">Google Environmental Report 2024</a>
+      &middot; <a href="https://blogs.microsoft.com/blog/2024/05/15/microsoft-releases-2024-sustainability-report/" target="_blank" rel="noopener">Microsoft Sustainability 2024</a>
+      &middot; <a href="https://www.iea.org/reports/electricity-2024" target="_blank" rel="noopener">IEA Electricity 2024</a>
+    </p>
+    <p style="margin-top:0.5rem;">&copy; 2026 AIDrain.earth — All values are estimates based on publicly available data and documented growth rates.</p>
+  </footer>
+
+</main>
+
+<script>
+(function () {
+  'use strict';
+
+  /* ── THEME TOGGLE ── */
+  var html    = document.documentElement;
+  var btn     = document.getElementById('theme-btn');
+  var icon    = document.getElementById('theme-icon');
+  var lbl     = document.getElementById('theme-label');
+  var theme   = 'dark';
+
+  var saved = localStorage.getItem('aidrain-theme');
+  if (saved === 'light') { theme = 'light'; applyTheme(); }
+
+  btn.addEventListener('click', function () {
+    theme = theme === 'dark' ? 'light' : 'dark';
+    applyTheme();
+    localStorage.setItem('aidrain-theme', theme);
+  });
+
+  function applyTheme() {
+    html.setAttribute('data-theme', theme);
+    if (theme === 'dark') {
+      icon.textContent = '☀';
+      lbl.textContent  = 'Light mode';
+      btn.setAttribute('aria-label', 'Switch to light mode');
+      btn.setAttribute('aria-pressed', 'false');
+    } else {
+      icon.textContent = '◑';
+      lbl.textContent  = 'Dark mode';
+      btn.setAttribute('aria-label', 'Switch to dark mode');
+      btn.setAttribute('aria-pressed', 'true');
+    }
+  }
+
+  /* ── DATA MODEL ── */
+  var WATER  = {2021:35e9,  2022:52e9,  2023:73e9,  2024:100e9, 2025:140e9, 2026:170e9};
+  var ENERGY = {2021:70e6,  2022:130e6, 2023:220e6, 2024:380e6, 2025:600e6, 2026:750e6};
+  var QUERY  = {2021:50e9,  2022:200e9, 2023:800e9, 2024:2000e9,2025:4000e9,2026:5000e9};
+
+  var START_2021    = new Date('2021-01-01T00:00:00Z').getTime();
+  var SNAP          = Date.now();
+  var todayMidnight = (function(){ var d=new Date(); d.setHours(0,0,0,0); return d.getTime(); })();
+
+  function accum(map, ms) {
+    var total = 0;
+    for (var y = 2021; y <= 2026; y++) {
+      var ys = new Date(y,0,1).getTime(), ye = new Date(y+1,0,1).getTime();
+      var rate = (map[y]||0) / (ye - ys);
+      var s = Math.max(START_2021, ys), e = Math.min(ms, ye);
+      if (e > s) total += rate * (e - s);
+    }
+    return total;
+  }
+
+  var SEC_YEAR = 365.25 * 86400;
+  var secW = (WATER[2026]||170e9)  / SEC_YEAR;
+  var secE = (ENERGY[2026]||750e6) / SEC_YEAR;
+  var secQ = (QUERY[2026]||5000e9) / SEC_YEAR;
+  var dayW = secW * 86400;
+
+  var baseToday = accum(WATER,  SNAP) - accum(WATER, todayMidnight);
+  var baseE     = accum(ENERGY, SNAP);
+  var baseQ     = accum(QUERY,  SNAP);
+
+  /* ── STATIC UI ── */
+  document.getElementById('hero-date').textContent =
+    new Date().toLocaleDateString('en-US', {weekday:'long', year:'numeric', month:'long', day:'numeric'});
+
+  function fmtRate(n) {
+    if (n >= 1e6) return (n/1e6).toFixed(2)+' M';
+    if (n >= 1e3) return (n/1e3).toFixed(1)+' K';
+    return Math.round(n).toLocaleString();
+  }
+  document.getElementById('r-sec').textContent = Math.round(secW).toLocaleString();
+  document.getElementById('r-min').textContent = Math.round(secW*60).toLocaleString();
+  document.getElementById('r-hr').textContent  = fmtRate(secW*3600);
+  document.getElementById('daily-chip').textContent = '~'+(dayW/1e6).toFixed(0)+'M L';
+
+  /* ── FORMATTERS ── */
+  function fmt(n) {
+    if (n >= 1e12) return (n/1e12).toFixed(3)+' T';
+    if (n >= 1e9)  return (n/1e9).toFixed(3)+' B';
+    if (n >= 1e6)  return (n/1e6).toFixed(2)+' M';
+    if (n >= 1e3)  return Math.round(n/1e3)+' K';
+    return Math.round(n).toLocaleString();
+  }
+
+  /* ── REDUCED MOTION CHECK ── */
+  var prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var ANIM_MS = prefersReduced ? 0 : 2200;
+
+  /* ── ANIMATION LOOP ── */
+  var els = {
+    todayNum: document.getElementById('today-num'),
+    dpFill:   document.getElementById('dp-fill'),
+    dayPct:   document.getElementById('day-pct'),
+    progTrack:document.getElementById('progress-track'),
+    energy:   document.getElementById('energy-val'),
+    co2:      document.getElementById('co2-val'),
+    q:        document.getElementById('queries-val'),
+    bot:      document.getElementById('bottles-val'),
+    pool:     document.getElementById('pools-val'),
+  };
+
+  var t0 = Date.now(), done = false;
+
+  function easeOut(t) { return 1 - Math.pow(1-t, 3); }
+
+  function tick() {
+    var now  = Date.now();
+    var prog = ANIM_MS > 0 ? Math.min((now - t0) / ANIM_MS, 1) : 1;
+    var ease = easeOut(prog);
+    var live = done ? (now - SNAP) / 1000 : 0;
+
+    var todayW = (baseToday + live * secW) * ease;
+    var totalE = (baseE     + live * secE) * ease;
+    var totalQ = (baseQ     + live * secQ) * ease;
+
+    /* Main counter */
+    els.todayNum.textContent = Math.round(todayW).toLocaleString('en-US');
+
+    /* Day progress */
+    var dayFrac = Math.min((now - todayMidnight) / 86400000, 1);
+    var pct = (dayFrac * 100).toFixed(1);
+    els.dpFill.style.width = pct + '%';
+    els.dayPct.textContent = pct + '%';
+    els.progTrack.setAttribute('aria-valuenow', Math.round(dayFrac * 100));
+
+    /* Secondary cards */
+    els.energy.textContent = fmt(totalE);
+    els.co2.textContent    = fmt(totalE * 0.4 / 1000);
+    els.q.textContent      = fmt(totalQ);
+    els.bot.textContent    = fmt(todayW / 0.5);
+    els.pool.textContent   = Math.round(todayW / 2500000).toLocaleString();
+
+    if (prog < 1) {
+      requestAnimationFrame(tick);
+    } else {
+      done = true;
+      setTimeout(function(){ requestAnimationFrame(tick); }, 100);
+    }
+  }
+
+  requestAnimationFrame(tick);
+
+})();
+</script>
+
+</body>
+</html>
